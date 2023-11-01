@@ -1,0 +1,9 @@
+lightning==2.0.5
+matplotlib==3.6.0
+numpy==1.24.0
+opencv-python==4.6.0.66
+pandas==1.4.4
+thop==0.1.1.post2209072238
+threadpoolctl==3.1.0
+torchmetrics==0.11.0
+tqdm==4.64.1
