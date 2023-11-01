@@ -47,13 +47,13 @@ Note: </br>
 
 - Not all operations or GPUs support BF16 precision. CPU does not support Mixed precision training at the moment. The trainer will raise and Exception upon trainer.fit() if there is an occurance of any such case.  </br>
 
-- To get started with this Trainer, please go through [this](https://github.com/DheerajMadda/PyTorch_Trainer/notebooks/1_Torch_Trainer_Tutorial.ipynb) notebook. </br>
+- To get started with this Trainer, please go through [this](https://github.com/DheerajMadda/PyTorch_Trainer/blob/main/notebooks/1_Torch_Trainer_Tutorial.ipynb) notebook. </br>
 
 </br>
 </br>
 
 ### Experimentation: </br>
-An experimentation has been carried out to compare the various training precisions using 3 factors; i) CUDA memory usage during training ii) training time iii) accuracy achieved. The notebook for this experimentation can be found [here](https://github.com/DheerajMadda/PyTorch_Trainer/demo/Classification.ipynb). </br>
+An experimentation has been carried out to compare the various training precisions using 3 factors; i) CUDA memory usage during training ii) training time iii) accuracy achieved. The notebook for this experimentation can be found [here](https://github.com/DheerajMadda/PyTorch_Trainer/blob/main/demo/Classification.ipynb). </br>
 
 The model used is [EfficientNet-B5](https://pytorch.org/vision/main/models/generated/torchvision.models.efficientnet_b5.html) and dataset used is [Standford Cars Dataset](https://www.kaggle.com/datasets/jessicali9530/stanford-cars-dataset). For a fair comparison, the model is only trained for 10 epochs and with same settings for various training precisions on device: Nvidia RTX 3080 TI 16GB. </br>
 
@@ -116,15 +116,15 @@ Information obtained through this experimentation:- </br>
 </br>
 
 #### Directory and files information:-
-- [notebooks](https://github.com/tpjesudhas/cv_component/tree/main/core/CV_Utils/Trainer/notebooks/) -> contains the jupyter notebook. 
+- [notebooks](https://github.com/DheerajMadda/PyTorch_Trainer/blob/main/notebooks/) -> contains the jupyter notebook. 
 
-- [torch_trainer](https://github.com/tpjesudhas/cv_component/tree/main/core/CV_Utils/Trainer/torch_trainer) -> contains the profiling and training utilities.
+- [torch_trainer](https://github.com/DheerajMadda/PyTorch_Trainer/blob/main/torch_trainer) -> contains the profiling and training utilities.
 
-- [utils](https://github.com/tpjesudhas/cv_component/tree/main/core/CV_Utils/Trainer/utils) -> contains the loss and metrics definition.
+- [utils](https://github.com/DheerajMadda/PyTorch_Trainer/blob/main/utils) -> contains the loss and metrics definition.
 
-- [demo](https://github.com/tpjesudhas/cv_component/tree/main/core/CV_Utils/Trainer/demo) -> contains the experimentation notebook.
+- [demo](https://github.com/DheerajMadda/PyTorch_Trainer/blob/main/demo) -> contains the experimentation notebook.
 
-- [requirements.txt](https://github.com/tpjesudhas/cv_component/tree/main/core/CV_Utils/Trainer/requirements.txt) -> contains all the required libraries to be installed.
+- [requirements.txt](https://github.com/DheerajMadda/PyTorch_Trainer/blob/main/requirements.txt) -> contains all the required libraries to be installed.
 
 </br>
 </br>
