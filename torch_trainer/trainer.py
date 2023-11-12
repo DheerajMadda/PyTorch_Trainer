@@ -103,7 +103,7 @@ class Trainer:
             if self.precision in ("16-mixed", "bf16-mixed"):
                 if self.device_str == "cpu":
                     raise Exception("CPU device does not support Mixed Float16/ Brain-Float16 computations.")
-                if not torch.cuda.is_bf16_supported():
+                if self.precision == "bf16-mixed" and not torch.cuda.is_bf16_supported():
                     raise Exception("This cuda device does not support Brain-Float16 computations.")
                 
     def _setup_compile(self):
