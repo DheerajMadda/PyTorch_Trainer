@@ -18,7 +18,7 @@ The Trainer features the following: </br>
 
 - Supports **Model Types**: Single-Input-Single-Output, Single-Input-Multiple-Outputs, Multiple-Inputs-Multiple-Outputs </br>
 
-- Supports **Learning Rate Scheduler**: OneCycleLR </br>
+- Supports **Learning Rate Scheduler**: </br>
 
 - Supports **Metrics**: Single or multiple metric(s) </br>
 
