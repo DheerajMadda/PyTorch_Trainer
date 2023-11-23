@@ -75,6 +75,8 @@ class Trainer:
         None
 
         """
+        if not isinstance(self.scheduler_step, (str,)):
+            raise Exception("scheduler_step must be of type `str`")
         if not isinstance(self.metrics, (dict,)):
             raise Exception("metrics must be of type `dict`")
         if not isinstance(self.callbacks, (list,)):
@@ -86,9 +88,8 @@ class Trainer:
         if not isinstance(self.gradient_acc_steps, (int,)):
             raise Exception("gradient_acc_steps must be of type `int`")
 
-        if self.scheduler:
-            if not isinstance(self.scheduler, (torch.optim.lr_scheduler.OneCycleLR,)):
-                raise Exception("Schedular must be of type: torch.optim.lr_scheduler.OneCycleLR")
+        if self.scheduler_step.lower() not in ("epoch", "batch"):
+            raise Exception("Schedular must be of one of ('epoch', 'batch')")
             
         if self.callbacks:
             for callback in self.callbacks:
@@ -118,6 +119,9 @@ class Trainer:
         self.checkpoint = None
         self.checkpoint_name = None
         self.early_stopping = None
+
+        # scheduler step
+        self.scheduler_step = self.scheduler_step.lower()
 
         # callbacks
         if self.callbacks:
@@ -412,14 +416,14 @@ class Trainer:
                 if not is_accumulating:
                     # step the optimizer and scheduler after the accumulation phase is over
                     self.optimizer.step()
-                    if self.scheduler:
+                    if self.scheduler and self.scheduler_step == "batch":
                         self.scheduler.step()
                     self.optimizer.zero_grad()
             else:
                 self.fabric.backward(loss)
                 # step the optimizer and scheduler
                 self.optimizer.step()
-                if self.scheduler:
+                if self.scheduler and self.scheduler_step == "batch":
                     self.scheduler.step()
                 self.optimizer.zero_grad()
 
@@ -451,6 +455,9 @@ class Trainer:
             # display verbose
             if self.verbose:
                 self._display_verbose(mode, epoch, steps, len_dataloader, loss, result_metrics, epoch_dict)
+
+        if self.scheduler and self.scheduler_step == "epoch":
+            self.scheduler.step()
 
         self._update_history(mode, epoch_dict)
 
@@ -528,6 +535,7 @@ class Trainer:
         criterion,
         optimizer,
         scheduler=None,
+        scheduler_step="epoch",
         metrics={},
         callbacks=[],
         precision="32",
@@ -545,6 +553,8 @@ class Trainer:
             An optimizer
         scheduler : object | None
             A torch.optim.lr_scheduler.OneCycleLR
+        scheduler_step : str
+            A string representing the scheduler step. Must be one of ("epoch", "batch")
         metrics : dict
             A dictionary containing metrics
         callbacks : list
@@ -564,6 +574,7 @@ class Trainer:
         self.criterion = criterion
         self.optimizer = optimizer
         self.scheduler = scheduler
+        self.scheduler_step = scheduler_step
         self.metrics = metrics
         self.callbacks = callbacks
         self.precision = precision
