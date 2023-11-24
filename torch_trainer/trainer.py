@@ -413,6 +413,9 @@ class Trainer:
                 else:
                     self.fabric.backward(loss/ self.gradient_acc_steps)
 
+                # clip gradients such that their total norm is no bigger than 2.0
+                self.fabric.clip_gradients(self.model, self.optimizer, max_norm=2.0)
+
                 if not is_accumulating:
                     # step the optimizer and scheduler after the accumulation phase is over
                     self.optimizer.step()
@@ -421,6 +424,10 @@ class Trainer:
                     self.optimizer.zero_grad()
             else:
                 self.fabric.backward(loss)
+                
+                # clip gradients such that their total norm is no bigger than 2.0
+                self.fabric.clip_gradients(self.model, self.optimizer, max_norm=2.0)
+
                 # step the optimizer and scheduler
                 self.optimizer.step()
                 if self.scheduler and self.scheduler_step == "batch":
